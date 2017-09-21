@@ -26,7 +26,7 @@ describe("Cell", function () {
     done();
   });
 
-  it("Hold to value", function (done) {
+  it("Hold on to value", function (done) {
     cell.set(Play.X);
     const result = cell.set(Play.O);
     expect(result).toBe(false);

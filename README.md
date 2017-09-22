@@ -1,3 +1,3 @@
-### Tic-Tac-Toe Typescprit + Jasmine
+### Tic-Tac-Toe TypeScprit + Jasmine
 
 Building in progress.

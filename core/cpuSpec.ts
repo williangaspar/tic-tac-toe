@@ -102,8 +102,9 @@ describe("CPU", function () {
   });
 
   it("Play random guess", function (done) {
-    const play = Play.X;
+    const play = Play.O;
     cellGrid[1][1].set(play);
+
     const result = cpu.play(cellGrid);
     expect(result[0]).toBeLessThan(3);
     expect(result[0]).toBeGreaterThan(-1);
@@ -111,8 +112,7 @@ describe("CPU", function () {
     expect(result[1]).toBeLessThan(3);
     expect(result[1]).toBeGreaterThan(-1);
 
-    expect(result[0]).not.toBe(1);
-    expect(result[1]).not.toBe(1);
+    expect(result[0] === 1 && result[1] === 1).toBe(false);
 
     done();
   });

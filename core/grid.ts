@@ -1,5 +1,6 @@
 import ICell from "./i/iCell";
 import IGrid from "./i/iGrid";
+import { ILine } from "./i/iVictory";
 
 export default class Grid implements IGrid {
 
@@ -35,8 +36,8 @@ export default class Grid implements IGrid {
     return -1;
   }
 
-  public isVictory(play: number): boolean {
-    let victory = false;
+  public getVictoryLine(play: number): ILine | null {
+    let victory = null;
     const userGrid = this.getUserGrid(play);
     victory =
       this.isVerticallVictory(userGrid) ||
@@ -66,31 +67,34 @@ export default class Grid implements IGrid {
     return grid;
   }
 
-  private isVerticallVictory(grid: number[][]): boolean {
+  private isVerticallVictory(grid: number[][]): ILine | null {
     for (let i = 0; i < this.range.length; i++) {
       if (grid[i].filter((item) => item !== null).length === 3) {
-        return true;
+        return { first: [i, 0], second: [i, 1], third: [i, 2] };
       }
     }
-    return false;
+    return null;
   }
 
-  private isHorizontalVictory(grid: number[][]): boolean {
+  private isHorizontalVictory(grid: number[][]): ILine | null {
     for (let i = 0; i < this.range.length; i++) {
       if (grid[0][i] && grid[1][i] && grid[2][i]) {
-        return true;
+        return { first: [0, i], second: [1, i], third: [2, i] };
       }
     }
-    return false;
+    return null;
   }
 
-  private isDiagonalVictory(grid: number[][]): boolean {
+  private isDiagonalVictory(grid: number[][]): ILine | null {
     if (grid[0][0] !== null && grid[1][1] !== null && grid[2][2] !== null) {
-      return true;
-    } else if (grid[2][0] !== null && grid[1][1] !== null && grid[0][2] !== null) {
-      return true;
+      return { first: [0, 0], second: [1, 1], third: [2, 2] };
     }
-    return false;
+
+    if (grid[2][0] !== null && grid[1][1] !== null && grid[0][2] !== null) {
+      return { first: [2, 0], second: [1, 1], third: [0, 2] };
+    }
+
+    return null;
   }
 
   private runGrid(action: Function): void {

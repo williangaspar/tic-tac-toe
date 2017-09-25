@@ -1,8 +1,8 @@
 import IPlayer from "./iPlayer";
 
 export default interface IVictory {
-  winner: IPlayer | null;
-  line: ILine | null;
+  winner: IPlayer;
+  line: ILine;
 }
 
 export interface ILine {

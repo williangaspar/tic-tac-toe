@@ -1,6 +1,7 @@
 import Cell from "./cell";
 import Play from "./e/ePlay";
 import Grid from "./grid";
+import { ILine } from "./i/iVictory";
 
 describe("Grid", function () {
   let grid: Grid;
@@ -31,54 +32,57 @@ describe("Grid", function () {
     done();
   });
 
+  function checkVictory(coordinates: ILine, play: number) {
+    grid.setCell(coordinates.first[0], coordinates.first[1], play);
+    grid.setCell(coordinates.second[0], coordinates.second[1], play);
+    grid.setCell(coordinates.third[0], coordinates.third[1], play);
+
+    const line = grid.getVictoryLine(play);
+
+    // Need to check if there is a line because of typescript null restriction
+    expect(line).not.toBeNull();
+    if (line) {
+      expect(line.first[0]).toBe(coordinates.first[0]);
+      expect(line.first[1]).toBe(coordinates.first[1]);
+      expect(line.second[0]).toBe(coordinates.second[0]);
+      expect(line.second[1]).toBe(coordinates.second[1]);
+      expect(line.third[0]).toBe(coordinates.third[0]);
+      expect(line.third[1]).toBe(coordinates.third[1]);
+    }
+  }
+
   it("vertical victory", function (done) {
-    const play = Play.O;
-    grid.setCell(1, 0, play);
-    grid.setCell(1, 1, play);
-    grid.setCell(1, 2, play);
-    expect(grid.isVictory(play)).toBe(true);
+    checkVictory({ first: [1, 0], second: [1, 1], third: [1, 2] }, Play.O);
     done();
   });
 
   it("horizontal victory", function (done) {
-    const play = Play.X;
-    grid.setCell(0, 0, play);
-    grid.setCell(1, 0, play);
-    grid.setCell(2, 0, play);
-    expect(grid.isVictory(play)).toBe(true);
+    checkVictory({ first: [0, 0], second: [1, 0], third: [2, 0] }, Play.X);
     done();
   });
 
   it("vertical victory left to right", function (done) {
-    const play = Play.O;
-    grid.setCell(0, 0, play);
-    grid.setCell(1, 1, play);
-    grid.setCell(2, 2, play);
-    expect(grid.isVictory(play)).toBe(true);
+    checkVictory({ first: [0, 0], second: [1, 1], third: [2, 2] }, Play.O);
     done();
   });
 
   it("vertical victory right to left", function (done) {
-    const play = Play.X;
-    grid.setCell(2, 0, play);
-    grid.setCell(1, 1, play);
-    grid.setCell(0, 2, play);
-    expect(grid.isVictory(play)).toBe(true);
+    checkVictory({ first: [2, 0], second: [1, 1], third: [0, 2] }, Play.X);
     done();
   });
 
   it("no victory", function (done) {
     const play = Play.O;
-    expect(grid.isVictory(play)).toBe(false);
+    expect(grid.getVictoryLine(play)).toBeNull();
 
     grid.setCell(0, 0, play);
     grid.setCell(0, 1, play);
-    expect(grid.isVictory(play)).toBe(false);
+    expect(grid.getVictoryLine(play)).toBeNull();
 
     grid.setCell(1, 0, play);
     grid.setCell(1, 1, Play.X);
     grid.setCell(1, 2, play);
-    expect(grid.isVictory(play)).toBe(false);
+    expect(grid.getVictoryLine(play)).toBeNull();
     done();
   });
 

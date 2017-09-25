@@ -1,9 +1,10 @@
 import ICell from "./iCell";
+import { ILine } from "./iVictory";
 
 export default interface IGrid {
   setCell(x: number, y: number, play: number): boolean;
   getCell(x: number, y: number): number;
-  isVictory(play: number): boolean;
+  getVictoryLine(play: number): ILine | null;
   isFull(): boolean;
   getGrid(): ICell[][];
 }

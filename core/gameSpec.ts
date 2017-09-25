@@ -54,10 +54,8 @@ describe("Game", function () {
     function onVictory(victory: IVictory) {
       // Need to check all this stuff because of typescript null restriction
       expect(victory).not.toBeNull();
-      expect(victory.line).not.toBeNull();
-      expect(victory.winner).not.toBeNull();
 
-      if (victory && victory.line && victory.winner) {
+      if (victory) {
         expect(victory.winner.play).toBe(player1.play);
         expect(victory.line.first[0]).toBe(0);
         expect(victory.line.first[1]).toBe(0);

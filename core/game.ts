@@ -10,11 +10,15 @@ export default class Game implements IGame {
   private turn: number;
   private gameOverCb: (victory: IVictory | null) => void;
 
-  public start(player1: IPlayer, player2: IPlayer, grid: IGrid): void {
+  constructor(grid: IGrid) {
+    this.grid = grid;
+  }
+
+  public start(player1: IPlayer, player2: IPlayer): void {
     this.turn = player1.isStarter ? player1.play : player2.play;
     this.player1 = player1;
     this.player2 = player2;
-    this.grid = grid;
+    this.grid.reset();
   }
 
   public play(x: number, y: number): boolean {

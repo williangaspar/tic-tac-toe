@@ -7,4 +7,5 @@ export default interface IGrid {
   getVictoryLine(play: number): ILine | null;
   isFull(): boolean;
   getGrid(): ICell[][];
+  reset(): void;
 }

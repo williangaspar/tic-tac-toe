@@ -13,7 +13,7 @@ describe("Game", function () {
 
   beforeEach(function (done) {
     grid = new Grid(Cell);
-    game = new Game();
+    game = new Game(grid);
     player1 = new Player("P1", Play.X, true);
     player2 = new Player("P2", Play.O, false);
     done();
@@ -21,10 +21,9 @@ describe("Game", function () {
 
   it("start/play: who plays first", function (done) {
     function start(first: Player, second: Player) {
-      grid = new Grid(Cell);
       first.isStarter = true;
       second.isStarter = false;
-      game.start(first, second, grid);
+      game.start(first, second);
       game.play(0, 0);
       expect(grid.getCell(0, 0)).toBe(first.play);
     }
@@ -35,7 +34,7 @@ describe("Game", function () {
   });
 
   it("play: must change turs", function (done) {
-    game.start(player1, player2, grid);
+    game.start(player1, player2);
 
     function play(x: number, y: number, playExpect: number) {
       game.play(x, y);
@@ -52,7 +51,7 @@ describe("Game", function () {
     game.onGameOver(onVictory);
 
     function onVictory(victory: IVictory) {
-      // Need to check all this stuff because of typescript null restriction
+      // Need to this because of typescript null restriction
       expect(victory).not.toBeNull();
 
       if (victory) {
@@ -67,7 +66,7 @@ describe("Game", function () {
       done();
     }
 
-    game.start(player1, player2, grid);
+    game.start(player1, player2);
 
     game.play(0, 0); // p1
     game.play(0, 1);
@@ -78,7 +77,7 @@ describe("Game", function () {
 
   it("gameover by full grid", function (done) {
     game.onGameOver(onGameOver);
-    game.start(player1, player2, grid);
+    game.start(player1, player2);
 
     grid.setCell(0, 2, player2.play);
     grid.setCell(2, 2, player2.play);

@@ -10,10 +10,17 @@ export default class Grid implements IGrid {
 
   constructor(Cell: new () => ICell) {
     this.cellGrid = this.range.map(() => []);
+    this.runGrid(addCell.bind(this));
     function addCell(x: number, y: number) {
       this.cellGrid[x][y] = new Cell();
     }
-    this.runGrid(addCell.bind(this));
+  }
+
+  public reset(): void {
+    this.runGrid(reset.bind(this));
+    function reset(x: number, y: number) {
+      this.cellGrid[x][y].reset();
+    }
   }
 
   public setCell(x: number, y: number, play: number): boolean {

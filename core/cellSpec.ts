@@ -40,4 +40,12 @@ describe("Cell", function () {
     expect(cell.get()).toBe(-1);
     done();
   });
+
+  it("Reset", function (done) {
+    const result = cell.set(Play.X);
+    expect(cell.get()).toBe(Play.X);
+    cell.reset();
+    expect(cell.get()).toBe(-1);
+    done();
+  });
 });

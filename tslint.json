@@ -16,7 +16,8 @@
       "only-arrow-functions": [false],
       "no-unused-variable": [true],
       "indent": [true, "spaces", 2],
-      "ban-types": [false],
+      "ban-types": [true],
+      "ordered-imports": false,
       "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
     },
     "rulesDirectory": []

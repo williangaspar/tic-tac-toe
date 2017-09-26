@@ -16,4 +16,8 @@ export default class Cell implements ICell {
   public get(): number {
     return this.state;
   }
+
+  public reset(): void {
+    this.state = -1;
+  }
 }

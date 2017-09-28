@@ -38,8 +38,8 @@ export default class Game implements IGame {
     return this.turn;
   }
 
-  public getGrid(): number[][] {
-    return this.grid.getGrid();
+  public getGrid(): IGrid {
+    return this.grid;
   }
 
   private checkGameOver(success: boolean, play: number) {

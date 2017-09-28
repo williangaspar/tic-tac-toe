@@ -8,5 +8,5 @@ export default interface IGame {
   play(x: number, y: number): boolean;
   onGameOver(cb: (victory: IVictory | null) => void): void;
   getTurn(): number;
-  getGrid(): ICell[][];
+  getGrid(): number[][];
 }

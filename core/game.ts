@@ -38,7 +38,7 @@ export default class Game implements IGame {
     return this.turn;
   }
 
-  public getGrid(): ICell[][] {
+  public getGrid(): number[][] {
     return this.grid.getGrid();
   }
 

@@ -96,6 +96,18 @@ describe("Grid", function () {
     done();
   });
 
+  it("reset", function (done) {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        grid.setCell(i, j, Play.X);
+      }
+    }
+
+    grid.reset();
+    expect(grid.isFull()).toBe(false);
+    done();
+  });
+
   it("not full grid", function (done) {
     expect(grid.isFull()).toBe(false);
 

@@ -17,6 +17,7 @@ export default class Grid implements IGrid {
   }
 
   public reset(): void {
+    this.plays = 0;
     this.runGrid(reset.bind(this));
     function reset(x: number, y: number) {
       this.cellGrid[x][y].reset();

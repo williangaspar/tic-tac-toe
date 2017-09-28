@@ -2,6 +2,7 @@ import IGame from "./i/iGame";
 import IGrid from "./i/iGrid";
 import IPlayer from "./i/iPlayer";
 import IVictory from "./i/iVictory";
+import ICell from "./i/iCell";
 
 export default class Game implements IGame {
   private grid: IGrid;
@@ -31,6 +32,14 @@ export default class Game implements IGame {
 
   public onGameOver(cb: (victory: IVictory | null) => void): void {
     this.gameOverCb = cb;
+  }
+
+  public getTurn(): number {
+    return this.turn;
+  }
+
+  public getGrid(): ICell[][] {
+    return this.grid.getGrid();
   }
 
   private checkGameOver(success: boolean, play: number) {

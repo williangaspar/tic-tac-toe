@@ -1,15 +1,19 @@
 import Play from "./e/ePlay";
-import ICell from "./i/iCell";
 import ICPU from "./i/iCpu";
+import IGrid from "./i/iGrid";
 
 export default class CPU implements ICPU {
   private player: number;
+  private grid: IGrid;
 
-  constructor(player: number) {
-    this.player = player;
+  constructor(play: number, grid: IGrid) {
+    this.player = play;
+    this.grid = grid;
   }
 
-  public play(grid: ICell[][]): number[] {
+  public play(): number[] {
+
+    const grid = this.grid.getGrid();
 
     let play = this.tryToWin(grid);
 
@@ -26,20 +30,20 @@ export default class CPU implements ICPU {
     return this.randomGuess(grid);
   }
 
-  private tryToWin(grid: ICell[][]): number[] {
+  private tryToWin(grid: number[][]): number[] {
     return this.findSpotBetween(grid, this.player);
   }
 
-  private avoidToLose(grid: ICell[][]): number[] {
+  private avoidToLose(grid: number[][]): number[] {
     const player2 = this.player === Play.X ? Play.O : Play.X;
     return this.findSpotBetween(grid, player2);
   }
 
-  private randomGuess(grid: ICell[][]): number[] {
+  private randomGuess(grid: number[][]): number[] {
     const available = [];
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (grid[i][j].get() === -1) {
+        if (grid[i][j] === -1) {
           available.push([i, j]);
         }
       }
@@ -48,7 +52,7 @@ export default class CPU implements ICPU {
     return available[index];
   }
 
-  private findSpotBetween(grid: ICell[][], play: number): number[] {
+  private findSpotBetween(grid: number[][], play: number): number[] {
     let index = -1;
 
     // Horizontal
@@ -83,14 +87,14 @@ export default class CPU implements ICPU {
     return [];
   }
 
-  private findSpotInLine(line: ICell[], play: number): number {
-    if (line[0].get() === play && line[1].get() === play && line[2].get() === -1) {
+  private findSpotInLine(line: number[], play: number): number {
+    if (line[0] === play && line[1] === play && line[2] === -1) {
       return 2;
     }
-    if (line[0].get() === play && line[2].get() === play && line[1].get() === -1) {
+    if (line[0] === play && line[2] === play && line[1] === -1) {
       return 1;
     }
-    if (line[1].get() === play && line[2].get() === play && line[0].get() === -1) {
+    if (line[1] === play && line[2] === play && line[0] === -1) {
       return 0;
     }
 

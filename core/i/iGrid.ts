@@ -6,6 +6,6 @@ export default interface IGrid {
   getCell(x: number, y: number): number;
   getVictoryLine(play: number): ILine | null;
   isFull(): boolean;
-  getGrid(): ICell[][];
+  getGrid(): number[][];
   reset(): void;
 }

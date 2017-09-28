@@ -58,11 +58,11 @@ export default class Grid implements IGrid {
     return this.plays === 9;
   }
 
-  public getGrid(): ICell[][] {
-    function clone(item: ICell[]) {
-      return item.map((innerItem) => innerItem);
+  public getGrid(): number[][] {
+    function map(item: ICell[]) {
+      return item.map((innerItem) => innerItem.get());
     }
-    return this.cellGrid.map(clone);
+    return this.cellGrid.map(map);
   }
 
   private getUserGrid(play: number): number[][] {

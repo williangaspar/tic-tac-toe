@@ -2,7 +2,7 @@
   "name": "tic_tac_toe",
   "version": "1.0.0",
   "description": "Tic-Tac-Toe",
-  "main": "dist/index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "jasmine-ts \"./**/*Spec.ts\"",
     "build": "tsc"

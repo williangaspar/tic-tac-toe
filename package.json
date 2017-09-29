@@ -1,16 +1,21 @@
 {
-  "name": "jogo_da_velha",
+  "name": "tic_tac_toe",
   "version": "1.0.0",
-  "description": "jogo da velha com react e redux",
-  "main": "index.ts",
+  "description": "Tic-Tac-Toe",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jasmine-ts \"./**/*Spec.ts\"",
     "build": "tsc"
   },
   "keywords": [
-    "jogo",
-    "velha"
+    "game",
+    "tic-tac-toe",
+    "typescript"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/williangaspar/tic-tac-toe.git"
+  },
   "author": "Willian gaspar",
   "license": "ISC",
   "devDependencies": {

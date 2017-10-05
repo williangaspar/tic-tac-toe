@@ -33,7 +33,7 @@ describe("Game", function () {
     done();
   });
 
-  it("play: must change turs", function (done) {
+  it("play: must change turns", function (done) {
     game.start(player1, player2);
 
     function play(x: number, y: number, playExpect: number) {
@@ -44,6 +44,15 @@ describe("Game", function () {
     play(0, 0, player1.play);
     play(1, 1, player2.play);
     play(2, 2, player1.play);
+    done();
+  });
+
+  it("play: must keep turn when success is false", function (done) {
+    game.start(player1, player2);
+    game.play(99, 99);
+    expect(game.getTurn()).toBe(player1.play);
+    game.play(0, 0);
+    expect(game.getTurn()).toBe(player2.play);
     done();
   });
 
@@ -80,7 +89,8 @@ describe("Game", function () {
     game.start(player1, player2);
 
     grid.setCell(0, 2, player2.play);
-    grid.setCell(2, 2, player2.play);
+    grid.setCell(1, 1, player1.play);
+    grid.setCell(1, 0, player2.play);
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {

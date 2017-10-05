@@ -13,8 +13,10 @@ var Game = (function () {
     Game.prototype.play = function (x, y) {
         var play = this.turn;
         var success = this.grid.setCell(x, y, play);
-        this.turn = this.turn === this.player1.play ? this.player2.play : this.player1.play;
-        this.checkGameOver(success, play);
+        if (success) {
+            this.turn = this.turn === this.player1.play ? this.player2.play : this.player1.play;
+            this.checkGameOver(play);
+        }
         return success;
     };
     Game.prototype.onGameOver = function (cb) {
@@ -26,16 +28,14 @@ var Game = (function () {
     Game.prototype.getGrid = function () {
         return this.grid;
     };
-    Game.prototype.checkGameOver = function (success, play) {
-        if (success) {
-            var line = this.grid.getVictoryLine(play);
-            if (line) {
-                var winner = play === this.player1.play ? this.player1 : this.player2;
-                this.gameOverCb({ winner: winner, line: line });
-            }
-            else if (this.grid.isFull()) {
-                this.gameOverCb(null);
-            }
+    Game.prototype.checkGameOver = function (play) {
+        var line = this.grid.getVictoryLine(play);
+        if (line) {
+            var winner = play === this.player1.play ? this.player1 : this.player2;
+            this.gameOverCb({ winner: winner, line: line });
+        }
+        else if (this.grid.isFull()) {
+            this.gameOverCb(null);
         }
     };
     return Game;

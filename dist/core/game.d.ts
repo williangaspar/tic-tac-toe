@@ -14,5 +14,5 @@ export default class Game implements IGame {
     onGameOver(cb: (victory: IVictory | null) => void): void;
     getTurn(): number;
     getGrid(): IGrid;
-    private checkGameOver(success, play);
+    private checkGameOver(play);
 }

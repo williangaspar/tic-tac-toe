@@ -47,7 +47,7 @@ game.play(play[0], play[1]);
 ```
 
 The CPU it's our little robot to play along. The constructor takes the play (0 or 1)  and a grid object which is provided by the `game` object.
-every time `cpu.play()` is called it will analyze the grid and give a guess.
+every time `cpu.play()` is called it will analyze the grid and make a guess.
 
 The Game: 
 ```javascript 

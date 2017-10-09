@@ -12,17 +12,15 @@ export default class CPU implements ICPU {
   }
 
   public play(): number[] {
-
     const grid = this.grid.getGrid();
+    let play: number[];
 
-    let play = this.tryToWin(grid);
-
+    play = this.tryToWin(grid);
     if (play.length) {
       return play;
     }
 
     play = this.avoidToLose(grid);
-
     if (play.length) {
       return play;
     }
@@ -31,12 +29,12 @@ export default class CPU implements ICPU {
   }
 
   private tryToWin(grid: number[][]): number[] {
-    return this.findSpotBetween(grid, this.player);
+    return this.findGap(grid, this.player);
   }
 
   private avoidToLose(grid: number[][]): number[] {
-    const player2 = this.player === Play.X ? Play.O : Play.X;
-    return this.findSpotBetween(grid, player2);
+    const otherPlayer = this.player === Play.X ? Play.O : Play.X;
+    return this.findGap(grid, otherPlayer);
   }
 
   private randomGuess(grid: number[][]): number[] {
@@ -52,12 +50,12 @@ export default class CPU implements ICPU {
     return available[index];
   }
 
-  private findSpotBetween(grid: number[][], play: number): number[] {
+  private findGap(grid: number[][], play: number): number[] {
     let index = -1;
 
     // Horizontal
     for (let i = 0; i < 3; i++) {
-      index = this.findSpotInLine(grid[i], play);
+      index = this.findGapInLine(grid[i], play);
       if (index > -1) {
         return [i, index];
       }
@@ -65,21 +63,21 @@ export default class CPU implements ICPU {
 
     // Vertical
     for (let i = 0; i < 3; i++) {
-      index = this.findSpotInLine([grid[0][i], grid[1][i], grid[2][i]], play);
+      index = this.findGapInLine([grid[0][i], grid[1][i], grid[2][i]], play);
       if (index > -1) {
         return [index, i];
       }
     }
 
     // Diagonal 1
-    index = this.findSpotInLine([grid[0][0], grid[1][1], grid[2][2]], play);
+    index = this.findGapInLine([grid[0][0], grid[1][1], grid[2][2]], play);
     if (index > -1) {
       return [index, index];
     }
 
     // Diagonal 2
     const diagonal = [[0, 2], [1, 1], [2, 0]];
-    index = this.findSpotInLine([grid[0][2], grid[1][1], grid[2][0]], play);
+    index = this.findGapInLine([grid[0][2], grid[1][1], grid[2][0]], play);
     if (index > -1) {
       return diagonal[index];
     }
@@ -87,7 +85,7 @@ export default class CPU implements ICPU {
     return [];
   }
 
-  private findSpotInLine(line: number[], play: number): number {
+  private findGapInLine(line: number[], play: number): number {
     if (line[0] === play && line[1] === play && line[2] === -1) {
       return 2;
     }
